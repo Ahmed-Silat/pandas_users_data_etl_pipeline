@@ -16,12 +16,15 @@ def get_engine():
         f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
 
-def load_to_csv(df, file_path, mode="a"):
-    header = not os.path.exists(file_path)
-    df.to_csv(file_path, mode=mode, index=False, header=header)
+def load_to_csv(df, file_path, mode="w"):
+    print("Loading Data into CSV...")
+    # header = not os.path.exists(file_path)
+    df.to_csv(file_path, mode=mode, index=False, header=True)
 
 def load_to_postgres(df, table_name="users_cleaned"):
     engine = get_engine()
+
+    print("Loading Data into DB...")
 
     df.to_sql(
         table_name,
@@ -29,5 +32,5 @@ def load_to_postgres(df, table_name="users_cleaned"):
         if_exists="replace",
         index=False,
         method="multi",
-        chunksize=5000
+        chunksize=50000
     )
