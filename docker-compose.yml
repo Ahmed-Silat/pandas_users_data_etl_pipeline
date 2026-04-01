@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:15.5
-    container_name: user_etl_pipeline
+    container_name: pandas_etl_pipeline
     restart: always
 
     environment:
